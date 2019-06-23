@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private  httpClientService: HttpClientService) {}
 
   async register(email: string, name: string, password: string): Promise<any> {
-    let user: User = {email: email, name: name, password: password};
+    const user: { password: string; name: string; email: string } = {email: email, name: name, password: password};
     // @ts-ignore
     let resp = await this.httpClientService.onRegister(user);
     return resp;

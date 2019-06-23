@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpClientService {
-  // serverPath: string = 'https://justjoinit-backend.herokuapp.com';
-  serverPath: string = 'http://localhost:5000';
+  serverPath: string = 'https://justjoinit-backend.herokuapp.com';
+  // serverPath: string = 'http://localhost:5000';
   authorization: string = '/auth';
   register: string = '/register';
   login: string = '/login';
@@ -17,6 +17,7 @@ export class HttpClientService {
   token: string = 'token';
   userToken: string = '';
   userID: string = '';
+  userName: string = '';
 
 
   constructor(private http: HttpClient,
@@ -51,9 +52,16 @@ export class HttpClientService {
       this.cookieServ.set(this.token, data.token.token);
       this.userToken = data.token.token;
       this.userID = data.user._id;
+      this.userName = data.user.name;
       console.log(this.userToken);
     }
     return resp;
+  }
+
+  public logout() {
+    this.userName = '';
+    this.userID = '';
+    this.userToken = '';
   }
 
   async addOffer(offer: Offer): Promise<any> {

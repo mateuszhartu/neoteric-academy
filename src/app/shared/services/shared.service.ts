@@ -12,6 +12,7 @@ export class SharedService {
 
   userId: string = '';
   offerId: string = '';
+  userName: string = '';
 
   filterParams: ParamsInterface = {
     city: 'All',
@@ -28,13 +29,24 @@ export class SharedService {
 
   async login(email: string, password: string): Promise<any> {
     let user: LoginUser = {email: email, password: password};
-    let resp = await  this.httpClientService.onLogin(user);
+    let resp = await this.httpClientService.onLogin(user);
     return resp;
   }
 
   getUserId() {
     this.userId = this.httpClientService.userID;
     return this.userId;
+  }
+
+  getUserName() {
+    this.userName = this.httpClientService.userName;
+    return this.userName;
+  }
+
+  logout() {
+    this.userId = '';
+    this.userName = '';
+    this.httpClientService.logout();
   }
 
   async deleteOffer(offerId) {
