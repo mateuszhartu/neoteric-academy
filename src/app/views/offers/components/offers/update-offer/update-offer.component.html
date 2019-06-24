@@ -58,10 +58,10 @@
     <div class="row">
       <div>
         <label for="salary1" for="salary2" class="label-log">Salary [PLN]</label>
-        <input id="salary1" type="number" name="salary" class="new-input-form" placeholder="Salary min"
+        <input id="salary1" type="number" name="salary.min" class="new-input-form" placeholder="Salary min"
                [(ngModel)]="salary.min">
         -
-        <input id="salary2" type="number" name="salary" class="new-input-form" placeholder="Salary max"
+        <input id="salary2" type="number" name="salary.max" class="new-input-form" placeholder="Salary max"
                [(ngModel)]="salary.max">
       </div>
     </div>
@@ -85,8 +85,8 @@
       <form #formRef="ngForm">
         <div *ngFor="let skill of skills; let in=index">
           <div class="form-group">
-            <input type="text" [(ngModel)]="skills[in].name" name="name{{ in }}" class="new-input-form" #name="ngModel" required />
-            <input type="number" min="1" max="10" [(ngModel)]="skills[in].lvl" name="name{{ in }}" class="new-input-form" #name="ngModel" required />
+            <input type="text" [(ngModel)]="skills[in].name" name="name {{ skill.name }}" class="new-input-form" #name="ngModel" required />
+            <input type="number" min="1" max="10" [(ngModel)]="skills[in].lvl" name="name {{ skill.lvl }}" class="new-input-form" #name="ngModel" required />
           </div>
         </div>
         <button class="mat-button"

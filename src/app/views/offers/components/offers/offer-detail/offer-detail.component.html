@@ -91,7 +91,8 @@
       <button class="btn-crud"
       [routerLink]="appRouterUrls.UPDATE_OFFER"
       (click)="sendOfferToUpdate()"><mat-icon>edit</mat-icon></button>
-      <button class="btn-crud" (click)="onDelete()"><mat-icon>delete_forever</mat-icon></button>
+      <button class="btn-crud" (click)="onDelete()"
+      [routerLink]="appRouterUrls.DEFAULT"><mat-icon>delete_forever</mat-icon></button>
     </div>
       <div class="label-log">
         <mat-checkbox style="margin-left: 20px">I agree to the terms of service and privacy policy</mat-checkbox>

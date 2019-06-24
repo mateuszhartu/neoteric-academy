@@ -20,10 +20,9 @@ export class OfferItemComponent implements OnInit {
     this.data = moment(this.offer.date).fromNow();
     this.test1 = /hours/i.exec(this.data);
     this.test2 = /seconds/i.exec(this.data);
-    this.test2 = /minute/i.exec(this.data);
+    this.test3 = /minutes/i.exec(this.data);
     if (this.test1 !== null || this.test2 !== null || this.test3 !== null) {
       this.data = 'New';
     }
   }
-
 }
