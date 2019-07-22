@@ -40,10 +40,13 @@ export class AuthLoginComponent implements OnInit {
   async onLogin() {
     if (this.username === 'admin@gmail.com' && this.password === 'adminadmin1234') {
       alert('You are logged as ' + this.username);
-      this.router.navigate(['']);
-      } else {
-      this.router.navigate(['']);
-    }
+      }
     await this.authService.login(this.username, this.password);
+
+    if (this.authService.userLoginData === true) {
+      this.router.navigate(['']);
+    } else {
+      alert('Wrong email or password');
+    }
   }
 }

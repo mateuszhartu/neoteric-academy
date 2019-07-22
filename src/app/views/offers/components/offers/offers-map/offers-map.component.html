@@ -5,7 +5,7 @@
                 [animation]="offerEl.markerAnimation"
                 (mouseOver)="markerOver(offerEl)"
                 (mouseOut)="markerOut(offerEl)"
-    (markerClick)="onMarkerClick(offerEl.lat, offerEl.lng)">
+    (markerClick)="onMarkerClick(offerEl.lat, offerEl.lng, offerEl)">
       <agm-info-window class="test1">
         <img src="{{ offerEl.imagePath }}" [ngModel]="icon.url">
         <div class="info-window-content">

@@ -19,6 +19,7 @@ export class SharedService {
     technology: 'All',
     expLvl: 'All',
     salaryMin: '0',
+    salaryMax: '33000'
   };
 
   constructor(private  httpClientService: HttpClientService) {}
@@ -34,12 +35,12 @@ export class SharedService {
   }
 
   getUserId() {
-    this.userId = this.httpClientService.userID;
+    this.userId = localStorage.getItem('userID');
     return this.userId;
   }
 
   getUserName() {
-    this.userName = this.httpClientService.userName;
+    this.userName = localStorage.getItem('userName');
     return this.userName;
   }
 

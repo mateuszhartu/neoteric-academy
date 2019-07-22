@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
-import {OfferService} from "../../../views/offers/services/offer.service";
+import { OfferService } from '../../../views/offers/services/offer.service';
 
 @Component({
   selector: 'app-filter',

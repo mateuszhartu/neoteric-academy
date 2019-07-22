@@ -1,7 +1,8 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { OfferService } from '../../../services/offer.service';
 import { AppRouterUrls } from '../../../../../app-routing.config';
 import { OffersInterface } from '../offers.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offers-map',
@@ -24,7 +25,8 @@ export class OffersMapComponent implements OnInit, DoCheck {
     },
   };
 
-  constructor(private offerService: OfferService) {
+  constructor(private offerService: OfferService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -36,10 +38,11 @@ export class OffersMapComponent implements OnInit, DoCheck {
     this.offers = this.offerService.getOffers();
   }
 
-  onMarkerClick(lat, lng) {
+  onMarkerClick(lat, lng, i) {
     this.lat = lat;
     this.lng = lng;
     this.zoom = 8;
+    this.router.navigate(['/offers/' + this.offers.indexOf(i)]);
   }
 
   markerOut(m: OffersInterface) {

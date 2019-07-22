@@ -20,7 +20,7 @@ export class NavigationMenuComponent implements DoCheck {
     ngDoCheck() {
       this.sharedService.getUserName();
       this.userName = this.sharedService.userName;
-      if (this.userName !== '') {
+      if (this.userName !== null) {
         this.userLogged = true;
       } else {
         this.userLogged = false;

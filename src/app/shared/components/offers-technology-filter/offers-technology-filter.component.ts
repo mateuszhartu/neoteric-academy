@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { OfferService } from '../../../views/offers/services/offer.service';
+import { Options } from 'ng5-slider';
+
 
 @Component({
   selector: 'app-offers-technology-filter',
@@ -10,9 +12,14 @@ import { OfferService } from '../../../views/offers/services/offer.service';
 export class OffersTechnologyFilterComponent {
   techVal: string = 'all';
   salaryVal: string = '0';
+  salaryValMax: string = '33000';
   expVal: string = 'all';
   value: number = 0;
   highValue: number = 33000;
+  options: Options = {
+    floor: 0,
+    ceil: 33000
+  };
 
   techMain = [
     {name: 'JS',
@@ -74,8 +81,8 @@ export class OffersTechnologyFilterComponent {
   onSalaryChoose() {
     this.salarySlider = !this.salarySlider;
     this.sharedServ.filterParams.salaryMin = this.salaryVal;
-    console.log('jest');
-    this.highValue = 33000;
+    this.sharedServ.filterParams.salaryMax = this.salaryValMax;
+    console.log(this.sharedServ.filterParams);
 }
 
   onTechChange(val: string) {
@@ -83,8 +90,9 @@ export class OffersTechnologyFilterComponent {
     this.sharedServ.filterParams.technology = this.techVal;
   }
 
-  onSalaryChange(val: string) {
+  onSalaryChange(val: string, highVal: string) {
     this.salaryVal = val;
+    this.salaryValMax = highVal;
   }
 
   onExpChange(val: string) {

@@ -17,8 +17,7 @@ export class SidenavComponent implements DoCheck{
   }
 
   ngDoCheck() {
-    console.log(this.sharedService.userName);
-    if (this.sharedService.userName !== '') {
+    if (this.sharedService.userName !== null) {
       this.userLogged = true;
     } else {
       this.userLogged = false;

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import { AppRouterUrls } from '../../../../../app-routing.config';
 import { OfferService } from '../../../services/offer.service';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-new-offer',
@@ -63,9 +64,29 @@ export class NewOfferComponent implements OnInit {
 
   skills = [{name: '', lvl: null}];
 
-  constructor(private offerService: OfferService) { }
+  @ViewChild('search') public searchElement: ElementRef;
+
+  constructor(private offerService: OfferService,
+              private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone) { }
 
   ngOnInit() {
+    this.mapsAPILoader.load().then(
+      () => {
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, { types:['address'] });
+
+        autocomplete.addListener('place_changed', () => {
+          this.ngZone.run(() => {
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            this.latitude = place.geometry.location.lat();
+            this.long = place.geometry.location.lng();
+            if (place.geometry === undefined || place.geometry === null ) {
+              return;
+            }
+          });
+        });
+      }
+    );
   }
 
   add() {

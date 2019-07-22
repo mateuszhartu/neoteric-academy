@@ -14,6 +14,8 @@ import { OfferService } from './views/offers/services/offer.service';
 import { HttpClientService } from './shared/http';
 import { CookieService } from 'ngx-cookie-service';
 import { BrandsModule } from './views/brands/brands.module';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -30,6 +32,11 @@ import { BrandsModule } from './views/brands/brands.module';
     OffersModule,
     BrandsModule,
     HttpClientModule,
+    MatGoogleMapsAutocompleteModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAp6cnxztG7VN62TsfvgATQ3YVDfgCN0tw',
+      libraries: ['places']
+    }),
   ],
   providers: [
     CoreGuards,

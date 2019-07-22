@@ -30,4 +30,5 @@ export interface ParamsInterface {
   technology: string;
   expLvl: string;
   salaryMin: string;
+  salaryMax: string;
 }

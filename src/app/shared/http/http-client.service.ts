@@ -7,23 +7,23 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpClientService {
-  serverPath: string = 'https://justjoinit-backend.herokuapp.com';
-  // serverPath: string = 'http://localhost:5000';
+  // serverPath: string = 'https://justjoinit-backend.herokuapp.com';
+  serverPath: string = 'http://localhost:5000';
   authorization: string = '/auth';
   register: string = '/register';
   login: string = '/login';
   offer: string = '/offers';
   newOffer: string = '/offers/new';
   token: string = 'token';
-  userToken: string = '';
-  userID: string = '';
-  userName: string = '';
+  newUserEmail;
+  userLoginData;
 
 
   constructor(private http: HttpClient,
               private cookieServ: CookieService) {}
 
   async onRegister(user: User): Promise<any> {
+    this.newUserEmail = true;
     let url = this.serverPath + this.authorization + this.register;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -31,12 +31,15 @@ export class HttpClientService {
     let options = { headers: headers};
     let resp = await this.http.post( url, JSON.stringify(user), options)
       .toPromise().catch((error: HttpErrorResponse) => {
+        this.newUserEmail = false;
+        alert('User with email ' + user.email + ' already exists');
         return error;
       });
     return resp;
   }
 
   async onLogin(user: LoginUser): Promise<any> {
+    this.userLoginData = true;
     let url = this.serverPath + this.authorization + this.login;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -44,24 +47,25 @@ export class HttpClientService {
     let options = { headers: headers};
     let resp = await this.http.post( url, JSON.stringify(user), options)
       .toPromise().catch((error: HttpErrorResponse) => {
+        this.userLoginData = false;
         return error;
       });
     if (!(resp instanceof HttpErrorResponse)) {
       let data = <{user: User, token: {expiresIn: number, token: string}}>
         resp.valueOf();
       this.cookieServ.set(this.token, data.token.token);
-      this.userToken = data.token.token;
-      this.userID = data.user._id;
-      this.userName = data.user.name;
-      console.log(this.userToken);
+      // this.userToken = data.token.token;
+      localStorage.setItem('userToken', data.token.token);
+      // this.userID = data.user._id;
+      localStorage.setItem('userID', data.user._id);
+      // this.userName = data.user.name;
+      localStorage.setItem('userName', data.user.name);
     }
     return resp;
   }
 
   public logout() {
-    this.userName = '';
-    this.userID = '';
-    this.userToken = '';
+    localStorage.clear();
   }
 
   async addOffer(offer: Offer): Promise<any> {
@@ -70,10 +74,8 @@ export class HttpClientService {
       'Content-Type': 'application/json' ,
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Authorization': this.userToken });
+      'Authorization': localStorage.getItem('userToken') });
     let options = { headers: headers };
-    console.log(JSON.stringify(offer));
-    console.log(this.userToken);
     let resp = await this.http.post(url, JSON.stringify(offer), options)
       .toPromise().catch((error: HttpErrorResponse) => {
         return error;

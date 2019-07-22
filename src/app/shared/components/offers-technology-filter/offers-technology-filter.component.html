@@ -1,4 +1,5 @@
 <div class="location">
+  <div style="width: 70%">
   <mat-button-toggle-group
     #group="matButtonToggleGroup"
     [value]="techVal"
@@ -16,6 +17,7 @@
       <span> {{ cm.name }}</span>
     </div>
   </mat-button-toggle-group>
+  </div>
   <div class="filter-buttons">
     <mat-button-toggle class="btn-rounded-salary"
     (click)="onSalaryChoose(); ongetOffers()">
@@ -25,8 +27,8 @@
       *ngIf="salarySlider">
         <p>Choose salary range</p>
         <div class="custom-slider">
-          <ng5-slider [(value)]="value" [(highValue)]="highValue"
-                      (valueChange)="onSalaryChange(value)"></ng5-slider>
+          <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"
+                      (valueChange)="onSalaryChange(value, highValue)"></ng5-slider>
         </div>
       </div>
     <mat-button-toggle class="btn-rounded-exp" [matMenuTriggerFor]="menu">

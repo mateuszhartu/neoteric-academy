@@ -18,6 +18,7 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NewOfferComponent } from './components/offers/new-offer/new-offer.component';
 import { UpdateOfferComponent } from './components/offers/update-offer/update-offer.component';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { UpdateOfferComponent } from './components/offers/update-offer/update-of
     MatGridListModule,
     MatProgressBarModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAp6cnxztG7VN62TsfvgATQ3YVDfgCN0tw'
+      apiKey: 'AIzaSyAp6cnxztG7VN62TsfvgATQ3YVDfgCN0tw',
+      libraries: ['places']
     }),
     AppRoutingModule
   ],

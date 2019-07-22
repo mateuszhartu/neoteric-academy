@@ -6,6 +6,7 @@
 .location {
   display: flex;
   flex-direction: row;
+  overflow: auto;
 }
 
 .mat-button-toggle {
@@ -75,9 +76,10 @@ a {
 }
 
 .filter-buttons {
+  margin-right: 10px;
+  width: 30%;
   display: flex;
-  flex-direction: row;
-  margin: 10px 0 0 500px;
+  flex-direction: row-reverse;
 }
 
 mat-slider {
